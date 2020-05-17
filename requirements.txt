@@ -1,0 +1,4 @@
+loguru==0.4.1
+fastapi==0.54.2
+pydantic
+tortoise-orm
