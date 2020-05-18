@@ -2,16 +2,17 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from tortoise.contrib.fastapi import register_tortoise
 
-from app.config import DATABASE_URL
+from app.config import DATABASE_URL, TITLE, DEBUG
 from app.controllers.router import router
 
-app = FastAPI(title="AioBomberApi")
+
+app = FastAPI(title=TITLE)
 register_tortoise(
     app,
     db_url=DATABASE_URL,
-    modules={"models": ["app.models.services"]},
+    modules={"models": ["app.models.database.services", "app.models.database.user"]},
     generate_schemas=True,
-    add_exception_handlers=True,
+    add_exception_handlers=False,
 )
 
 origins = ["*"]
