@@ -2,8 +2,8 @@ from typing import Union, List
 
 from fastapi import APIRouter
 
-from app.models.pydantic.models import DefaultJsonSchema
-from app.models.database.services import Services
+from app.apps.pydantic_models.models import DefaultJsonSchema
+from app.apps.services.models import Services
 
 
 router = APIRouter()

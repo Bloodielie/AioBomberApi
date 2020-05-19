@@ -3,14 +3,15 @@ from starlette.middleware.cors import CORSMiddleware
 from tortoise.contrib.fastapi import register_tortoise
 
 from app.config import DATABASE_URL, TITLE, DEBUG
-from app.controllers.router import router
+from app.apps.router import router
 
 
-app = FastAPI(title=TITLE)
+app = FastAPI(title=TITLE, debug=DEBUG)
 register_tortoise(
     app,
     db_url=DATABASE_URL,
-    modules={"models": ["app.models.database.services", "app.models.database.user"]},
+    modules={"models": ["app.apps.services.models",
+                        "app.apps.user.models"]},
     generate_schemas=True,
     add_exception_handlers=False,
 )

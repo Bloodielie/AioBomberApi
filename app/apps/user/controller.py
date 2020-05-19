@@ -2,10 +2,10 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from tortoise.exceptions import IntegrityError
 
-from app.models.database.user import User
+from app.apps.user.models import User
 from typing import Union
-from app.models.pydantic.models import DefaultJsonSchema, Unsuccessful, Successful
-from app.models.database.services import Services
+from app.apps.pydantic_models.models import DefaultJsonSchema, Unsuccessful, Successful
+from app.apps.services.models import Services
 
 router = APIRouter()
 
@@ -27,7 +27,7 @@ async def user_verification(credentials: HTTPBasicCredentials = Depends(security
     return user
 
 
-@router.put("/", response_model=Union[Unsuccessful, Successful])
+@router.post("/", response_model=Union[Unsuccessful, Successful])
 async def add_service(data: DefaultJsonSchema, verification=Depends(user_verification)):
     try:
         await Services.create(**data.dict())
@@ -46,7 +46,7 @@ async def delete_service(service_name: str, verification=Depends(user_verificati
         return Unsuccessful(reason="No such service found.")
 
 
-@router.post("/{service_name}", response_model=Union[Unsuccessful, Successful])
+@router.put("/{service_name}", response_model=Union[Unsuccessful, Successful])
 async def update_service(service_name: str, data: DefaultJsonSchema, verification=Depends(user_verification)):
     try:
         await Services.filter(name=service_name).update(**data.dict())
