@@ -1,11 +1,12 @@
+from typing import Union
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from tortoise.exceptions import IntegrityError
 
-from app.apps.user.models import User
-from typing import Union
 from app.apps.pydantic_models.models import DefaultJsonSchema, Unsuccessful, Successful
 from app.apps.services.models import Services
+from app.apps.user.models import User
 
 router = APIRouter()
 
@@ -14,10 +15,10 @@ security = HTTPBasic()
 
 async def user_verification(credentials: HTTPBasicCredentials = Depends(security)) -> User:
     default_raise = HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect login or password",
-            headers={"WWW-Authenticate": "Basic"},
-        )
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Incorrect login or password",
+        headers={"WWW-Authenticate": "Basic"},
+    )
     user = await User.get_or_none(user_name=credentials.username)
     if user is None:
         raise default_raise

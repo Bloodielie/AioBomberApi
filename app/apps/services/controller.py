@@ -5,7 +5,6 @@ from fastapi import APIRouter
 from app.apps.pydantic_models.models import DefaultJsonSchema
 from app.apps.services.models import Services
 
-
 router = APIRouter()
 
 

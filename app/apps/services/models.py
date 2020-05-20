@@ -1,5 +1,6 @@
-from tortoise import fields, models
 from typing import Optional, Dict
+
+from tortoise import fields, models
 
 
 class Services(models.Model):

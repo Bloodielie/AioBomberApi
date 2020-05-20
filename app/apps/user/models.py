@@ -1,6 +1,5 @@
-from tortoise import fields, models
 from passlib.context import CryptContext
-
+from tortoise import fields, models
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
