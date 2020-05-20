@@ -1,4 +1,3 @@
-from loguru import logger
 from tortoise import Tortoise
 
 from app.config import DATABASE_URL
