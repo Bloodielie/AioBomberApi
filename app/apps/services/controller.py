@@ -8,7 +8,7 @@ from app.apps.services.models import Services
 router = APIRouter()
 
 
-@router.get("/get_json_schema", response_model=Union[List[DefaultJsonSchema], str])
+@router.get("/json_schema", response_model=Union[List[DefaultJsonSchema], str])
 async def get_all_json_schema() -> Union[List[dict], str]:
     """
     Gives a json_schema for all service
@@ -20,7 +20,7 @@ async def get_all_json_schema() -> Union[List[dict], str]:
     return [service.get_json_schema() for service in services]
 
 
-@router.get("/get_json_schema/{service_name}", response_model=Union[DefaultJsonSchema, str])
+@router.get("/json_schema/{service_name}", response_model=Union[DefaultJsonSchema, str])
 async def get_json_schema(service_name: str) -> Union[dict, str]:
     """
     Gives a json_schema for one service
